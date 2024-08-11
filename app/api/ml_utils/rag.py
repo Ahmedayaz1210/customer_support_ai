@@ -5,8 +5,8 @@ import chromadb
 from langchain.vectorstores import Chroma
 from langchain.document_loaders import PyPDFLoader
 
-from doc_embedding import get_langchain_embeddings
-from data_handler import get_docs
+from ml_utils.doc_embedding import get_langchain_embeddings
+from ml_utils.data_handler import get_docs
 
 
 class RAG:
