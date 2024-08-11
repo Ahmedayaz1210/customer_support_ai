@@ -1,3 +1,10 @@
+langchain
+langchain-community
+pypdf
+beautifulsoup4
+chromadb
+sentence-transformers
+langchain-huggingface
 fastapi
 uvicorn
 google-generativeai
