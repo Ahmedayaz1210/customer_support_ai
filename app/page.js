@@ -9,16 +9,22 @@ export default function Home() {
   const [message, setMessage] = useState("")
   const sendMessage = async () => {
     if (!message.trim()) return; // Prevent sending empty messages
-    setHistory((history) => [...history, { role: "user", parts: [{ text: message }] }])
-    setMessage('')
-    const response = await fetch("/api", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify([...history, { role: "user", parts: [{ text: message }] }])
-    })
-    const data = await response.json()
-    setHistory((history) => [...history, { role: "model", parts: [{ text: data }] }])
-  }
+    const newMessage = { role: "user", parts: [{ text: message }] };
+    setHistory((history) => [...history, newMessage]);
+    setMessage('');
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      });
+      const data = await response.json();
+      setHistory((history) => [...history, { role: "model", parts: [{ text: data.response }] }]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // Handle error (e.g., show an error message to the user)
+    }
+  };
   const chatContainerRef = useRef(null);
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -98,8 +104,8 @@ export default function Home() {
         <TextField 
           placeholder='Message HUIT Bot' 
           value={message}
-          // multiline
-          // maxRows={4}
+          multiline
+          maxRows={4}
           onChange={(e) => setMessage(e.target.value)} 
           onKeyDown={handleKeyDown}
           fullWidth

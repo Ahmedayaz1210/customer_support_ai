@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### How to run the the chatbot (Back-end and Front-end):
+Make sure latest version of python as well as pip is installed in your computer
+
+Install dependencies from requirements.txt
+
+To run the python file "main.py" for backend
+In your terminal run: python main.py
+
+Once the chatbot's backend is running run the front end
+In your terminal run: npm run dev
