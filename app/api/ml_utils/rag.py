@@ -25,7 +25,11 @@ class RAG:
         doc_splits = get_docs([url])
         # check if the url already exists in the vector store
         #  “ids”, “embeddings”, “metadatas”, “documents”.
-        # self.vector_store.get()
+        db_data = self.vector_store.get(include=['metadatas'])
+        for metadata in db_data['metadatas']:
+            if metadata['source'] == doc_splits[0].metadata['source']:
+                print(f"Skipping {doc_splits[0].metadata['source']} as it already exists in the vector store")
+                return
 
         self.vector_store.add_documents(doc_splits)
         self.urls.append(url)

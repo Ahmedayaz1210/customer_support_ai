@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
+from ml_utils.rag import RAG
+
 # Load environment variables
 load_dotenv()
 
@@ -25,6 +27,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+
+# vector store path
+vector_store_dir = "db"
+os.makedirs(vector_store_dir, exist_ok=True)
+
+vector_store_file = os.path.join(vector_store_dir, "chroma.db") # "chroma.db"
+# if os.path.exists(vector_store_file) : shutil.rmtree(vector_store_file) 
+
+from rag import RAG
+
+rag = RAG(vector_store_file, "headstarter_policy")
+
+rag.add_url("https://headstarter.co/privacy-policy")
 
 
 # Configure Gemini API (replace with your actual API key)
@@ -53,8 +69,15 @@ async def chat(request: ChatRequest):
         # Send system instructions
         chat.send_message(SYSTEM_INSTRUCTIONS)
         
+        # RAG
+        message = request.message
+        context = rag.get_context(message)
+        message += " " + context
+
         # Send user message and get response
-        response = chat.send_message(request.message)
+        response = chat.send_message(message)
+        
+        
         return {"response": response.text}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
