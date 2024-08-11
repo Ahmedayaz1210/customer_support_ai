@@ -42,7 +42,6 @@ rag = RAG(vector_store_file, "headstarter_policy")
 
 rag.add_url("https://headstarter.co/privacy-policy")
 rag.add_url("https://headstarter.co/info")
-rag.
 
 
 # Configure Gemini API (replace with your actual API key)
