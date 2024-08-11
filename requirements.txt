@@ -12,4 +12,4 @@ pydantic
 pydantic-settings
 python-dotenv
 requests
-MUI: npm install @mui/material @emotion/react @emotion/styled
+
