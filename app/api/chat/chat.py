@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler
-from main import app
+from app.api.chat.main import app
 from mangum import Mangum
 
 handler = Mangum(app)
