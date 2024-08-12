@@ -5,8 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 import re
-
-from ml_utils.rag import RAG
+from mangum import Mangum
 
 # Load environment variables
 load_dotenv()
@@ -22,21 +21,14 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Add your Next.js app's URL
+    allow_origins=[
+        
+        "http://localhost:3000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# vector store path
-vector_store_dir = "db"
-os.makedirs(vector_store_dir, exist_ok=True)
-
-vector_store_file = os.path.join(vector_store_dir, "chroma.db")
-rag = RAG(vector_store_file, "headstarter_policy")
-
-rag.add_url("https://headstarter.co/privacy-policy")
-rag.add_url("https://headstarter.co/info")
 
 # Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
@@ -75,13 +67,8 @@ async def chat(request: ChatRequest):
         # Send system instructions
         chat.send_message(SYSTEM_INSTRUCTIONS)
         
-        # RAG
-        message = request.message
-        context = rag.get_context(message)
-        message += " " + context
-
         # Send user message and get response
-        response = chat.send_message(message)
+        response = chat.send_message(request.message)
         
         # Remove Markdown formatting from the response
         cleaned_response = remove_markdown(response.text)
@@ -90,9 +77,12 @@ async def chat(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/")
+@app.get("/api")
 async def root():
-    return {"message": "Welcome to the Headstarter Tech Support Bot API. Use the /chat endpoint to chat."}
+    return {"message": "Welcome to the Headstarter Tech Support Bot API. Use the /api/chat endpoint to chat."}
+
+# Handler for Vercel serverless function
+handler = Mangum(app)
 
 if __name__ == "__main__":
     import uvicorn
