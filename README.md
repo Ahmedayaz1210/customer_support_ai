@@ -45,3 +45,6 @@ In your terminal run: python main.py
 
 Once the chatbot's backend is running run the front end
 In your terminal run: npm run dev
+
+Command to install all dependencies:
+pip install -r requirements.txt --user

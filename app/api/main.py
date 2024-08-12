@@ -35,7 +35,6 @@ os.makedirs(vector_store_dir, exist_ok=True)
 
 vector_store_file = os.path.join(vector_store_dir, "chroma.db") # "chroma.db"
 # if os.path.exists(vector_store_file) : shutil.rmtree(vector_store_file) 
-
 from ml_utils.rag import RAG
 
 rag = RAG(vector_store_file, "headstarter_policy")
@@ -49,11 +48,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 # System instructions
 SYSTEM_INSTRUCTIONS = """
-You are a helpful and knowledgeable customer support bot for Harvard University technical support. Your name is Harvard's Tech Support Bot.
-Your job is to assist students, faculty, and staff with their technical issues related to university services, 
-such as email, online courses, and campus Wi-Fi. Provide clear, concise, and polite responses. You are Harvard's bot not Google's.
-If you are unable to resolve an issue, guide the user on how to contact human support 
-by telling them the email address which is ithelp@harvard.edu and our phone number which is: (617)-495-7777. Also please don't use any emojis. If user doesn't respond with anything, tell them they didn't input anything and ask them if they still need help, in a nice friendly tone.
+You are Headstarter's Tech Support Bot, a knowledgeable assistant for Headstarter AI's community of emerging software engineers. Your role is to help users with technical issues, provide information about Headstarter's programs, and offer guidance on career development in software engineering. Give clear, concise, and friendly responses. If you can't resolve an issue, direct the user to human support. If the user doesn't input anything, politely ask if they still need assistance. Don't add any emojis. Let's get started!
 """
 
 # Create a model instance
@@ -72,8 +67,8 @@ async def chat(request: ChatRequest):
         
         # RAG
         message = request.message
-        context = rag.get_context(message)
-        message += " " + context
+        # context = rag.get_context(message)
+        # message += " " + context
 
         # Send user message and get response
         response = chat.send_message(message)
@@ -85,7 +80,7 @@ async def chat(request: ChatRequest):
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Harvard Tech Support Bot API. Use the /chat endpoint to chat."}
+    return {"message": "Welcome to the Headstarter Tech Support Bot API. Use the /chat endpoint to chat."}
 
 if __name__ == "__main__":
     import uvicorn
