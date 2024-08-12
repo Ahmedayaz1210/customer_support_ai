@@ -1,0 +1,15 @@
+{
+    "builds": [
+      {
+        "src": "api/chat/main.py",
+        "use": "@vercel/python"
+      },
+      { "src": "package.json", "use": "@vercel/next" }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "api/chat/main.py"
+      }
+    ]
+}
