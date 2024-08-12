@@ -4,6 +4,7 @@ import google.generativeai as genai
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
+import re
 
 from ml_utils.rag import RAG
 
@@ -27,28 +28,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-
 # vector store path
 vector_store_dir = "db"
 os.makedirs(vector_store_dir, exist_ok=True)
 
-vector_store_file = os.path.join(vector_store_dir, "chroma.db") # "chroma.db"
-# if os.path.exists(vector_store_file) : shutil.rmtree(vector_store_file) 
-from ml_utils.rag import RAG
-
+vector_store_file = os.path.join(vector_store_dir, "chroma.db")
 rag = RAG(vector_store_file, "headstarter_policy")
 
 rag.add_url("https://headstarter.co/privacy-policy")
 rag.add_url("https://headstarter.co/info")
 
-
-# Configure Gemini API (replace with your actual API key)
+# Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
 # System instructions
 SYSTEM_INSTRUCTIONS = """
-You are Headstarter's Tech Support Bot, a knowledgeable assistant for Headstarter AI's community of emerging software engineers. Your role is to help users with technical issues, provide information about Headstarter's programs, and offer guidance on career development in software engineering. Give clear, concise, and friendly responses. If you can't resolve an issue, direct the user to human support. If the user doesn't input anything, politely ask if they still need assistance. Don't add any emojis. Let's get started!
+You are Headstarter's Tech Support Bot, a knowledgeable assistant for Headstarter AI's community of emerging software engineers. Your role is to help users with technical issues, provide information about Headstarter's programs, and offer guidance on career development in software engineering. Give clear, concise, and friendly responses. If you can't resolve an issue, direct the user to human support. If the user doesn't input anything, politely ask if they still need assistance. Don't add any emojis. Please provide your responses in plain text without using Markdown formatting or special characters for emphasis. Let's get started!
 """
 
 # Create a model instance
@@ -56,6 +51,21 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 
 class ChatRequest(BaseModel):
     message: str
+
+def remove_markdown(text):
+    # Remove bold/italic markers
+    text = re.sub(r'\*\*?', '', text)
+    # Remove bullet points
+    text = re.sub(r'^\s*[\*\-+]\s+', '', text, flags=re.MULTILINE)
+    # Remove backticks for code blocks
+    text = re.sub(r'`{1,3}', '', text)
+    # Remove hashtags for headers
+    text = re.sub(r'^#+\s+', '', text, flags=re.MULTILINE)
+    # Remove underscores for emphasis
+    text = re.sub(r'_{1,2}', '', text)
+    # Remove square brackets and parentheses for links
+    text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
+    return text.strip()
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
@@ -67,14 +77,16 @@ async def chat(request: ChatRequest):
         
         # RAG
         message = request.message
-        # context = rag.get_context(message)
-        # message += " " + context
+        context = rag.get_context(message)
+        message += " " + context
 
         # Send user message and get response
         response = chat.send_message(message)
         
+        # Remove Markdown formatting from the response
+        cleaned_response = remove_markdown(response.text)
         
-        return {"response": response.text}
+        return {"response": cleaned_response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
