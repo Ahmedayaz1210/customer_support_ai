@@ -46,6 +46,8 @@ class RAG:
 
     def get_context(self, query):
         docs = self.search(query, top_k=1)
+        if len(docs) == 0:
+            return ""
         return docs[0].page_content
     
     

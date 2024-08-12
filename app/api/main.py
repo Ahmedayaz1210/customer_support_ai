@@ -67,8 +67,8 @@ async def chat(request: ChatRequest):
         
         # RAG
         message = request.message
-        # context = rag.get_context(message)
-        # message += " " + context
+        context = rag.get_context(message)
+        message += " " + context
 
         # Send user message and get response
         response = chat.send_message(message)
