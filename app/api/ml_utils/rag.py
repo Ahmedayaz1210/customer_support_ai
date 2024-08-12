@@ -10,7 +10,7 @@ from ml_utils.data_handler import get_docs
 
 
 class RAG:
-    def __init__(self, db_filepath, collection_name) -> None:
+    def __init__(self, db_filepath, collection_name, thresh = 0.2) -> None:
         
         self.urls = []
 
@@ -19,6 +19,7 @@ class RAG:
             embedding_function = get_langchain_embeddings(),
             persist_directory = db_filepath
         )
+        self.thresh = thresh
         pass
     
     def add_url(self, url):
@@ -35,7 +36,13 @@ class RAG:
         self.urls.append(url)
     
     def search(self, query, top_k = 3):
-        return self.vector_store.max_marginal_relevance_search(query,k=top_k)
+        docs_db = self.vector_store.similarity_search_with_relevance_scores(query,k=top_k)
+        results = []
+        for doc,score in docs_db:
+            if score > self.thresh:
+                results.append(doc)
+
+        return results
 
     def get_context(self, query):
         docs = self.search(query, top_k=1)

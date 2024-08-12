@@ -36,7 +36,7 @@ os.makedirs(vector_store_dir, exist_ok=True)
 vector_store_file = os.path.join(vector_store_dir, "chroma.db") # "chroma.db"
 # if os.path.exists(vector_store_file) : shutil.rmtree(vector_store_file) 
 
-from rag import RAG
+from ml_utils.rag import RAG
 
 rag = RAG(vector_store_file, "headstarter_policy")
 
