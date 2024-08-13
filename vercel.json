@@ -1,7 +1,9 @@
 {
   "buildCommand": "next build",
   "builds": [
-    { "src": "package.json", "use": "@vercel/next" },
+    { "src": "package.json", "use": "@vercel/next", "config": {
+        "maxLambdaSize": "450mb"
+      } },
     { "src": "app/api/main.py", "use": "@vercel/python" }
   ],
   "routes": [
