@@ -39,7 +39,7 @@ export default function HeadstarterChat() {
     setHistory((prev) => [...prev, newMessage]);
     setMessage('');
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('https://bbksiry4k3b7rq7fwbv2dzeria0vqivx.lambda-url.us-east-1.on.aws/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: message }),
