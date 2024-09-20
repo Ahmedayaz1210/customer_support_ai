@@ -13,6 +13,8 @@
 
 [Features](#-key-features) • [Installation](#-installation-and-setup) • [Usage](#-usage-guide) • [Challenges](#-challenges-and-learnings) • [Future Improvements](#-future-improvements)
 
+<img src="/public/Screenshot 2024-09-19 232738.png" alt="View" width="400"/>
+<img src="/public/Screenshot 2024-09-19 232814.png" alt="Query View" width="400"/>
 </div>
 
 ## 🌟 Project Overview
