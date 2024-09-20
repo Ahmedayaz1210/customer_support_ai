@@ -110,6 +110,19 @@ Customer Support AI is an advanced AI-powered chatbot designed specifically for 
 
 Contributions to enhance Customer Support AI are welcome! Feel free to fork the repository, make improvements, and submit pull requests. Together, we can make this AI chatbot even more powerful and user-friendly.
 
+
+## 🖥️ Backend Repository
+
+Excited to dive deeper into the backend workings of our Customer Support AI? We've got you covered! 🎉
+
+For a comprehensive look at the backend code, including our FastAPI implementation, and LangChain integration, head over to our dedicated backend repository:
+https://github.com/Ahmedayaz1210/customersupportai_backend/
+
+This is where all the AI magic happens behind the scenes. Whether you're a fellow developer, an AI enthusiast, or just curious about how it all works, you'll find a treasure trove of code and configurations here.
+
+Feel free to explore, learn, and if you're feeling inspired, contribute to making our AI even smarter! 🧠💻
+
+Happy Coding!🚀
 ---
 
 <div align="center">
