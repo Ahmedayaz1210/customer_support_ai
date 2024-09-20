@@ -48,7 +48,7 @@ Customer Support AI is an advanced AI-powered chatbot designed specifically for 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/customer-support-ai.git
+   git clone https://github.com/Ahmedayaz1210/customer-support-ai.git
    cd customer-support-ai
    ```
 
