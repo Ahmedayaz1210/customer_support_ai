@@ -1,50 +1,132 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🤖 Customer Support AI
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+*Intelligent AI-powered customer service chatbot*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://customer-support-ai-taupe.vercel.app/)
+[![Made with Next.js](https://img.shields.io/badge/Made%20with-Next.js-000000?style=flat&logo=Next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=flat&logo=material-ui&logoColor=white)](https://mui.com/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-4285F4?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
+[![AWS Lambda](https://img.shields.io/badge/AWS%20Lambda-FF9900?style=flat&logo=aws-lambda&logoColor=white)](https://aws.amazon.com/lambda/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Features](#-key-features) • [Installation](#-installation-and-setup) • [Usage](#-usage-guide) • [Challenges](#-challenges-and-learnings) • [Future Improvements](#-future-improvements)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<img src="/public/Screenshot 2024-09-19 232738.png" alt="View" width="400"/>
+<img src="/public/Screenshot 2024-09-19 232814.png" alt="Query View" width="400"/>
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🌟 Project Overview
 
-## Learn More
+Customer Support AI is an advanced AI-powered chatbot designed specifically for Headstarter AI, a platform that helps software engineers create projects. This intelligent chatbot provides comprehensive answers to all questions related to the platform, enhancing user experience and streamlining customer support.
 
-To learn more about Next.js, take a look at the following resources:
+### 🎯 Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 💬 **AI-Powered Responses**: Utilizes Google Gemini API for intelligent and context-aware answers
+- 🧠 **RAG Implementation**: Employs Retrieval-Augmented Generation for accurate and relevant information retrieval
+- 🔍 **Custom Knowledge Base**: Integrates Headstarter AI's specific data for tailored responses
+- ⚡ **Real-time Interaction**: Provides instant responses to user queries
+- 🌐 **Web-based Interface**: User-friendly chat interface accessible through any web browser
+- 🔒 **Secure Backend**: Robust backend hosted on AWS Lambda for scalable and secure operations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🛠 Technologies Used
 
-## Deploy on Vercel
+### Frontend
+- ⚛️ Next.js & React
+- 🎨 Material-UI
+- 🤖 Google Gemini API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Backend
+- 🐍 Python with FastAPI
+- 🔗 LangChain
+- 🗄️ Chroma DB
+- 🤗 Hugging Face models
+- ☁️ AWS Lambda
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 💻 Installation and Setup
 
-### How to run the the chatbot (Back-end and Front-end):
-Make sure latest version of python as well as pip is installed in your computer
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Ahmedayaz1210/customer-support-ai.git
+   cd customer-support-ai
+   ```
 
-Install dependencies from requirements.txt
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-To run the python file "main.py" for backend
-In your terminal run: python main.py
+3. Install Material-UI:
+   ```bash
+   npm install @mui/material @emotion/react @emotion/styled
+   ```
 
-Once the chatbot's backend is running run the front end
-In your terminal run: npm run dev
+4. Install Google Generative AI:
+   ```bash
+   npm i @google/generative-ai
+   ```
 
-Command to install all dependencies:
-pip install -r requirements.txt --user
+5. Environment Setup:
+   Create a `.env.local` file in the root directory and add:
+   ```
+   GEMINI_API_KEY=your_gemini_api_key
+   ```
+
+6. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
+
+7. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## 📘 Usage Guide
+
+1. Visit the [live demo](https://customer-support-ai-taupe.vercel.app/)
+2. Type your question or query related to Headstarter AI in the chat interface
+3. Receive instant, AI-generated responses based on the platform's knowledge base
+4. Continue the conversation to get more detailed information or ask follow-up questions
+
+## 💡 Challenges and Learnings
+
+- Successfully implemented Retrieval-Augmented Generation (RAG) for the first time, involving complex processes of data scraping, chunking, and integration with Chroma DB
+- Overcame significant challenges in hosting the backend on AWS Lambda, requiring three days of troubleshooting and configuration to achieve optimal performance
+
+## 🚀 Future Improvements
+
+1. 📊 Implement analytics to track common user queries and improve response accuracy
+2. 🌐 Expand the knowledge base to cover a wider range of topics
+3. 🗣️ Add multi-language support for international users
+4. 🔗 Integrate with popular messaging platforms for broader accessibility
+5. 👤 Implement user authentication for personalized experiences
+
+## 🤝 Contributing
+
+Contributions to enhance Customer Support AI are welcome! Feel free to fork the repository, make improvements, and submit pull requests. Together, we can make this AI chatbot even more powerful and user-friendly.
+
+
+## 🖥️ Backend Repository
+
+Excited to dive deeper into the backend workings of our Customer Support AI? We've got you covered! 🎉
+
+For a comprehensive look at the backend code, including our FastAPI implementation, and LangChain integration, head over to our dedicated backend repository:
+https://github.com/Ahmedayaz1210/customersupportai_backend/
+
+This is where all the AI magic happens behind the scenes. Whether you're a fellow developer, an AI enthusiast, or just curious about how it all works, you'll find a treasure trove of code and configurations here.
+
+Feel free to explore, learn, and if you're feeling inspired, contribute to making our AI even smarter! 🧠💻
+
+Happy Coding!🚀
+---
+
+<div align="center">
+
+[⬆ Back to top](#-customer-support-ai)
+
+</div>
